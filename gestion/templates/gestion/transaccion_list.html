@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transacciones ALKE WALLET</title>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+
+<body>
+
+<div class="encabezado">
+    <div>
+        <p>Bienvenido, {{ user.username }}</p>
+        <h1>Transacciones</h1>
+    </div>
+
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Salir</button>
+</form>
+
+
+</div>
+
+<a href="{% url 'cliente-list' %}">Volver a Clientes</a>
+
+
+<a href="{% url 'transaccion-create' %}">Nueva Transacción</a>
+
+<hr>
+
+{% if transacciones %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre Cliente</th>
+            <th>Cuenta</th>
+            <th>Tipo</th>
+            <th>Etiqueta</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Saldo actual</th>
+        </tr>
+    </thead>
+
+<tbody>
+    {% for transaccion in transacciones %}
+    <tr>
+        <td>{{ transaccion.id }}</td>
+        <td>{{ transaccion.cuenta.cliente.nombre }}</td>
+        <td>{{ transaccion.cuenta.numero_cuenta }}</td>
+        <td>{{ transaccion.tipo }}</td>
+        <td>  {% for etiqueta in transaccion.etiquetas.all %}
+        {{ etiqueta.nombre }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        Sin etiquetas
+    {% endfor %}</td>
+        <td>${{ transaccion.monto }}</td>
+        <td>{{ transaccion.fecha|date:"d/m/Y H:i" }}</td>
+        <td>{{ transaccion.descripcion }}</td>
+  <td>${{ transaccion.saldo_despues }}</td>   
+    </tr>
+    {% endfor %}
+</tbody>
+
+
+</table>
+
+{% else %}
+
+<p>No existen transacciones registradas.</p>
+
+{% endif %}
+
+</body>
+</html>

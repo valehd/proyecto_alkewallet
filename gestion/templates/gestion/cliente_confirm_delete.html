@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar cliente - Alke Wallet</title>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Eliminar cliente</h1>
+
+        <p>
+            ¿Está seguro de que desea eliminar al cliente
+            <strong>{{ object.nombre }}</strong>?
+        </p>
+
+        <div class="acciones">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-rojo">Sí, eliminar</button>
+            </form>
+
+            <a href="{% url 'cliente-list' %}">Cancelar</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes ALKE WALLET</title>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+<body>
+    
+<div class="encabezado">
+    <div>
+        <p>Bienvenido, {{ user.username }}</p>
+        <h1>Clientes</h1>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Salir</button>
+    </form>
+</div>
+
+
+
+
+
+
+    <a href="{% url 'cliente-create' %}">Crear Cliente</a>
+    <a href="{% url 'transaccion-list' %}">Ver Transacciones</a>
+
+    <hr>
+     {% if clientes %}
+
+     <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Cuenta</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>{{ cliente.cuenta.numero_cuenta }}</td>
+                    <td >
+                        <a href="{% url 'cliente-update' cliente.pk %}">Editar</a>
+                        <a href="{% url 'cliente-delete' cliente.pk %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </body>
+     </table>
+
+      {% else %}
+        <p>No existen clientes registrados.</p>
+    {% endif %}
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Alke Wallet</title>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Alke Wallet</h1>
+        <h2>Iniciar sesión</h2>
+
+        {% if form.errors %}
+            <p class="error">
+                Usuario o contraseña incorrectos.
+            </p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Ingresar</button>
+        </form>
+
+    </div>
+
+</body>
+</html>

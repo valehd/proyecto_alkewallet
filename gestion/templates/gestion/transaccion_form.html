@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Transacción - ALKE WALLET</title>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+
+<body>
+
+<div class="encabezado">
+    <div>
+        <p>Bienvenido, {{ user.username }}</p>
+        <h1>Nueva Transacción</h1>
+    </div>
+
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Salir</button>
+</form>
+
+
+</div>
+
+<a href="{% url 'transaccion-list' %}">Volver a Transacciones</a>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+
+
+{{ form.as_p }}
+
+<button type="submit">Guardar Transacción</button>
+
+
+</form>
+
+</body>
+</html>
